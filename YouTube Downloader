@@ -1,0 +1,10 @@
+from pytube import YouTube
+#Specify path to save
+Save = "C:/"
+
+#YouTube video link
+link = "link.com"
+
+yt = YouTube(link)
+stream = yt.streams.first()
+stream.download(Save)
