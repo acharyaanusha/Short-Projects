@@ -1,0 +1,54 @@
+from time import strftime
+from tkinter import *
+
+import time
+import datetime
+from pygame import mixer
+
+root = Tk()
+root.title('Alarm-Clock') #Title for the window
+
+#Function for setting Alarm
+def setalarm():
+    alarmtime = f"{hrs.get()}:{mins.get()}:{secs.get()}"
+    print(alarmtime)
+    #Condition to Check if a valid alarm time has been set
+    if alarmtime!="::":
+        alarmclock(alarmtime)
+
+#Function for the alarm clock
+def alarmclock(alarmtime):
+    while True:
+        time.sleep(1)
+        time_now = datetime.datetime.now().strftime("%H:%M:%S")
+        print(time_now)
+        #To compare if the now time is equal to the alarm time
+        if time_now == alarmtime:
+            Wakeup = Label(root,font =('arial',20,'bold'), text = "Wake up!Wake up! Wake up!",bg="black",fg="red").grid(row=6,columnspan=3)
+            print("Wake up!")
+            mixer.init()
+            mixer.music.load(r'C:\Users\achar\Desktop\WakeUP.mp3')
+            mixer.music.play()
+            break
+
+#Variables for the Hour, Mins and Secs
+hrs = StringVar()
+mins = StringVar()
+secs = StringVar()
+
+#Greeting on Top
+greet = Label(root, font = ('arial',20,'bold'), text="Take a short nap!").grid(row=1,columnspan=3)
+
+#Button for holding the Hour value
+hrbtn = Entry(root,textvariable=hrs,bg = 'red',width=5,font=('arial',20,'bold')).grid(row=2,column=1)
+
+#Button for holding the Min value
+minbtn = Entry(root, textvariable=mins, bg='red', width=5, font=('arial',20,'bold')).grid(row=2,column=2)
+
+#Button for holding the Sec value
+secbtn = Entry(root, textvariable = secs, bg = 'red',width =5, font = ('arial',20,'bold')).grid(row=2,column=3)
+
+#The most important button: To set the alarm and start the function
+setbtn = Button(root,text="Set Alarm", command = setalarm, fg="red", font =('arial',20,'bold')).grid(row=4,columnspan=3)
+
+mainloop()
